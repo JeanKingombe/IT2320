@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> LAb 5 IT2320</title>
+    <style>
+        #hello {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<!--  1 Describing what the HTML Document Object Model is and at least 3 ways that you can use it -->
+    <p id="studentName"></p>
+    <p id="currDate"></p>
+    <p id="hello">Hello!</p>
+    <button id="clickButton" onclick="clickMe()">Click Me</button>
+    <div id="mouseEvent">No mouseover</div>
+    
+    <form id="myForm" onsubmit="return validateForm()">
+        Operand 1: <input type="text" id="operand1"><br>
+        Operand 2: <input type="text" id="operand2"><br>
+        <input type="submit" value="Submit">
+        <p id="formError"></p>
+    </form>
+
+    <script>
+        // 2.  Populate the content of element with id="studentName" with your first and last name using the document object and innerHTML property
+        document.getElementById("studentName").innerHTML = "J.D. King";
+
+        // 3.  Set the innerHTML of the element with id="currDate" to the current date.
+
+
+        document.getElementById("currDate").innerHTML = new Date().toLocaleDateString();
+
+        // 4. Change the font color for id="hello" to green using the style.color property.
+      
+        document.getElementById("hello").style.color = "green";
+
+        // 5.  When a user clicks the button displaying the value "Click Me", change the value to "Clicked!"
+      //Use the clickMe() function. Attach it to the onclick event for the button.
+        function clickMe() {
+            document.getElementById("clickButton").value = "Clicked!";
+        }
+
+        //6. When a user scrolls their mouse over the element with id="mouseEvent", display mouseover! in the element.
+      //When the mouse is no longer over the element, it should go back to "No mouseover".
+        const mouseEventDiv = document.getElementById("mouseEvent");
+        mouseEventDiv.onmouseover = function() {
+            this.innerHTML = "Mouseover!";
+        };
+        mouseEventDiv.onmouseout = function() {
+            this.innerHTML = "No mouseover";
+        };
+
+        // 7. Validate the form. Make sure both operands 1) have values, 2) are numeric, 3) are integers, and 4) are between 1 and 10 (include 1 or 10 as valid).
+      //You should check for each. If either of them are not valid, display an appropriate error message indicating which of the
+      //4 criteria it does not meet (hint: you'll need an if statement) in the element with id='formError' and return false, so the form does not submit. 
+      //If they are all valid, submit the form. Test with values '' and '', 'a' and 'b', 5.5 and 1.1, 11 and 12, 1 and 10.
+        function validateForm() {
+            const operand1 = document.getElementById("operand1").value;
+            const operand2 = document.getElementById("operand2").value;
+            let errorMessage = '';
+
+            // Check if both values are entered
+            if (!operand1 || !operand2) {
+                errorMessage = 'Both operands must be entered.';
+            } else if (isNaN(operand1) || isNaN(operand2)) {
+                errorMessage = 'Both operands must be numeric.';
+            } else if (!Number.isInteger(parseFloat(operand1)) || !Number.isInteger(parseFloat(operand2))) {
+                errorMessage = 'Both operands must be integers.';
+            } else if (operand1 < 1 || operand1 > 10 || operand2 < 1 || operand2 > 10) {
+                errorMessage = 'Operands must be between 1 and 10.';
+            }
+
+            if (errorMessage) {
+                document.getElementById('formError').innerHTML = errorMessage;
+                return false; 
+            }
+
+            return true; 
+        }
+
+        // 8 Use getElementsByTagName to get all div elements. Use a for loop to loop through
+      //each element in the collection you retrieved. Add a style property to change the font color to green for each of the elements.
+      //Hint: this should change the instruction line for each problem to green.
+        const divElements = document.getElementsByTagName("div");
+        for (let i = 0; i < divElements.length; i++) {
+            divElements[i].style.color = "green";
+        }
+
+        //  9 Retrieve the body element and append a div element to the end of the body element with innerHTML set to 'The end...'
+        const newDiv = document.createElement("div");
+        newDiv.innerHTML = "The end...";
+        document.body.appendChild(newDiv);
+    </script>
+</body>
+</html>
