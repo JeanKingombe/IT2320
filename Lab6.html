@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lab 6</title>
+    <script>
+        // loading content using AJAX
+        function loadWithAjax() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'ajax.txt', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById('ajax-response').innerHTML = xhr.responseText;
+                } else {
+                    document.getElementById('ajax-response').innerHTML = 'Failed to load AJAX content.';
+                }
+            };
+            xhr.onerror = function () {
+                document.getElementById('ajax-response').innerHTML = 'Error during AJAX request.';
+            };
+            xhr.send();
+        }
+
+        //  loading content using Fetch API
+        function loadWithFetch() {
+            fetch('fetch.txt')
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Failed to load Fetch content.');
+                    }
+                })
+                .then(data => {
+                    document.getElementById('fetch-response').innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById('fetch-response').innerHTML = error.message;
+                });
+        }
+
+        // Load content on page load
+        window.onload = function () {
+            loadWithAjax();
+            loadWithFetch();
+        };
+    </script>
+</head>
+<body>
+    <h1>IT-2320</h1>
+    <h2>Lab 6 - AJAX, Frameworks, Promises</h2>
+    <p><strong>Student Name:</strong> Jean D King</p>
+    
+    <div>
+        <h3>AJAX Response:</h3>
+        <div id="ajax-response">Loading AJAX content...</div>
+    </div>
+    <div>
+        <h3>Fetch Response:</h3>
+        <div id="fetch-response">Loading Fetch API content...</div>
+    </div>
+</body>
+</html>
