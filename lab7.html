@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON and JavaScript Examples</title>
+</head>
+<body>
+
+<!-- Step 1: Parsing the JSON string and outputting the title -->
+<script>
+    const courseObj = JSON.parse('{"id":"IT-2320", "credits":4, "title":"Interactive Internet Programming"}');
+    document.writeln("<h3>Step 1: Title of Course</h3>");
+    document.writeln(courseObj.title + "<br>");
+</script>
+
+<!-- Step 2: Parsing the JSON string into an array and looping through it to output each value -->
+<script>
+    const text = '[ "Document Object Model", "Language Constructs", "OOP", "Fetch API", "JSON" ]';
+    const courseArray = JSON.parse(text);
+    document.writeln("<h3>Step 2: Course Topics</h3>");
+    courseArray.forEach(topic => {
+        document.writeln(topic + "<br>");
+    });
+</script>
+
+<!-- Step 3: Parsing the JSON string, modifying a property, and outputting all values -->
+<script>
+    const myJSON = '{"id":"IT-2320", "credits":4, "title":"Interactive Internet Programming", "description":"JavaScript"}';
+    const courseDetails = JSON.parse(myJSON);
+
+    // Modifying the description property.
+    courseDetails.description = "An Introduction to JavaScript";
+
+    document.writeln("<h3>Step 3: Course Details</h3>");
+    document.writeln(courseDetails.id + ", " + courseDetails.credits + ", " + courseDetails.title + ", " + courseDetails.description + "<br>");
+</script>
+
+<!-- Step 4: Creating an array and a JSON string and outputting both -->
+<script>
+    const courseArray2 = ["IT-1025", "IT-2310", "IT-2320"];
+    const courseJSON = '[ "IT-1025", "IT-2310", "IT-2320" ]';
+
+    document.writeln("<h3>Step 4: Course IDs</h3>");
+    document.writeln(courseArray2.join(", ") + "<br>");  // Outputting array as a string
+    document.writeln(courseJSON + "<br>");  // Outputting the JSON string directly
+</script>
+
+<!-- Step 5: Fetching values from courses.txt and outputting them -->
+<script>
+    fetch('courses.txt')  // Assumes a file courses.txt is available on the server
+        .then(response => response.json())
+        .then(data => {
+            document.writeln("<h3>Step 5: Course Data from courses.txt</h3>");
+            data.forEach(course => {
+                document.writeln(course + "<br>");
+            });
+        })
+        .catch(error => console.error('Error loading the file:', error));
+</script>
+
+<!-- Step 6: Fetching JSON from it1025.txt and outputting the title -->
+<script>
+    fetch('it1025.txt')  // Assumes a file it1025.txt is available on the server
+        .then(response => response.json())
+        .then(data => {
+            document.writeln("<h3>Step 6: Course Title from it1025.txt</h3>");
+            document.writeln(data.title + "<br>");
+        })
+        .catch(error => console.error('Error fetching the file:', error));
+</script>
+
+</body>
+</html>
